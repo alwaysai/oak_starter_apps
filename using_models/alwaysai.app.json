@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "python app.py"
+  },
+  "models": {
+    "alwaysai/mobilenet_ssd_oak": 1,
+    "alwaysai/human_pose_oak": 3
+  }
+}
