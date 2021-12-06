@@ -1,4 +1,5 @@
 import edgeiq
+from edgeiq import oak
 
 
 def object_detection():
@@ -9,8 +10,8 @@ def object_detection():
     """
     fps = edgeiq.FPS()
 
-    with edgeiq.Oak('alwaysai/mobilenet_ssd_oak') as camera, edgeiq.Streamer(
-    ) as streamer:
+    with edgeiq.oak.Oak('alwaysai/mobilenet_ssd_oak') as camera, \
+            edgeiq.Streamer() as streamer:
 
         fps.start()
         while True:
@@ -21,7 +22,8 @@ def object_detection():
 
             result = camera.get_model_result(confidence_level=.75)
 
-            # Check for inferencing results. Oak.get_model_result is a non-blocking call and will return None when new data is not available.
+            # Check for inference results. Oak.get_model_result is a non-blocking
+            # call and will return None when new data is not available.
             if result:
                 frame = edgeiq.markup_image(frame, result.predictions)
 
@@ -49,8 +51,8 @@ def pose_estimation():
     """
     fps = edgeiq.FPS()
 
-    with edgeiq.Oak('alwaysai/human_pose_oak') as camera, edgeiq.Streamer(
-    ) as streamer:
+    with edgeiq.oak.Oak('alwaysai/human_pose_oak') as camera, \
+            edgeiq.Streamer() as streamer:
 
         fps.start()
         while True:
@@ -61,7 +63,8 @@ def pose_estimation():
 
             result = camera.get_model_result()
 
-            # Check for inferencing results. Oak.get_model_result is a non-blocking call and will return None when new data is not available.
+            # Check for inferencing results. Oak.get_model_result is a non-blocking
+            # call and will return None when new data is not available.
             if result:
                 frame = result.draw_poses(frame)
 
